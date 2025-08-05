@@ -1,5 +1,5 @@
 async function loadFoods() {
-  const res = await fetch('/food');
+  const res = await fetch('https://votacion-mesaza-back.vercel.app/food');
   const data = await res.json();
 
   const container = document.getElementById('packs');
@@ -25,7 +25,7 @@ async function loadFoods() {
     const voteButton = document.createElement('button');
     voteButton.innerText = 'Votar este pack';
     voteButton.onclick = async () => {
-      await fetch('/vote', {
+      await fetch('https://votacion-mesaza-back.vercel.app/vote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chapterId: chapter.id }),
