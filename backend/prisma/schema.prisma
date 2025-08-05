@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Chapter {
+  id     Int     @id @default(autoincrement())
+  name   String
+  foods  Food[]  // Relación 1-N con Food
+    votes      Int      @default(0) // Número de votos
+
+}
+
+model Food {
+  id         Int      @id @default(autoincrement())
+  name       String
+  imageUrl   String   // Foto de la comida
+  chapterId  Int
+  chapter    Chapter  @relation(fields: [chapterId], references: [id])
+}
