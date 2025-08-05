@@ -14,7 +14,7 @@ model Chapter {
   name   String
   foods  Food[]  // Relación 1-N con Food
     votes      Int      @default(0) // Número de votos
-
+imageUrl String?
 }
 
 model Food {

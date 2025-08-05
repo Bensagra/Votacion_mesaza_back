@@ -14,12 +14,18 @@ function animateRandomBars(chapters) {
     label.className = 'bar-label';
     label.innerText = '?';
 
+    const img = document.createElement('img');
+    img.className = 'bar-image';
+    img.src = chapter.imageUrl || 'https://via.placeholder.com/70'; // imagen del chapter
+    img.alt = chapter.name;
+
     const name = document.createElement('div');
     name.className = 'bar-name';
     name.innerText = chapter.name;
 
     bar.appendChild(label);
     barWrapper.appendChild(bar);
+    barWrapper.appendChild(img);
     barWrapper.appendChild(name);
     chartContainer.appendChild(barWrapper);
   });
@@ -39,11 +45,11 @@ function animateRandomBars(chapters) {
 
 async function showRealResults() {
   const res = await fetch('https://votacion-mesaza-back.vercel.app/totalVotes');
-  const data = await res.json(); // [{ id, name, votes }]
+  const data = await res.json(); // [{ id, name, votes, imageUrl }]
 
   const maxVotes = Math.max(...data.map(c => c.votes || 1));
-
   const barWrappers = document.querySelectorAll('.bar-wrapper');
+
   barWrappers.forEach((wrapper, i) => {
     const bar = wrapper.querySelector('.bar');
     const label = wrapper.querySelector('.bar-label');
